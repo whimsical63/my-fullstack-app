@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useQuery } from "@tanstack/react-query";
+import api from "@/lib/api";
 
 export default function Home() {
-  const [message, setMessage] = useState('');
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["hello"],
+    queryFn: () => api.get("/api/hello").then((res) => res.data),
+  });
 
-  useEffect(() => {
-    fetch('http://localhost:4000/api/hello')
-      .then(res => res.json())
-      .then(data => setMessage(data.message))
-      .catch(err => console.error('Fetch error:', err));
-  }, []);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
-  return <div>{message || 'Loading...'}</div>;
+  return <div>{data.message}</div>;
 }

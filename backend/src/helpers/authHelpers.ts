@@ -18,15 +18,15 @@ export async function cleanupExpiredSessions() {
   try {
     await db.delete(sessions).where(lt(sessions.expiresAt, new Date()));
     console.log("Cleaned up expired sessions");
-  } catch (error) {
-    console.error("Failed to cleanup expired sessions:", error);
+  } catch {
+    console.error("Failed to cleanup expired sessions");
   }
 }
 
 export function verifyAccessToken(token: string) {
   try {
     return jwt.verify(token, ACCESS_TOKEN_SECRET!) as { id: string };
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -37,7 +37,7 @@ export function verifyRefreshToken(token: string) {
       id: string;
       sessionId: string;
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }

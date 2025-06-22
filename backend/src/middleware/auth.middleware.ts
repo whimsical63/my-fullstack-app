@@ -2,13 +2,11 @@
 import { RequestHandler } from "express";
 import { verifyAccessToken } from "../helpers/authHelpers";
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        id: string;
-      };
-    }
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: {
+      id: string;
+    };
   }
 }
 

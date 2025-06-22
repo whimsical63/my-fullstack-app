@@ -69,7 +69,8 @@ export default function SignInForm() {
       />
       {mutation.error && (
         <p className="text-red-600 text-sm">
-          {(mutation.error as any)?.response?.data?.message || "Login failed"}
+          {(mutation.error as { response?: { data?: { message?: string } } })
+            ?.response?.data?.message || "Login failed"}
         </p>
       )}
       <button

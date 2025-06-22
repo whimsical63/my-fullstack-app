@@ -83,7 +83,8 @@ export default function SignUpForm() {
       />
       {mutation.error && (
         <p className="text-red-600 text-sm">
-          {(mutation.error as any)?.response?.data?.message || "Sign up failed"}
+          {(mutation.error as { response?: { data?: { message?: string } } })
+            ?.response?.data?.message || "Sign up failed"}
         </p>
       )}
       <button

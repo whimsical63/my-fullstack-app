@@ -56,8 +56,9 @@ export default function Home() {
         await login(formData.email, formData.password);
       }
       // Navigation will be handled by the useEffect above
-    } catch (err: any) {
-      setError(err.response?.data?.message || "An error occurred");
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false);
     }

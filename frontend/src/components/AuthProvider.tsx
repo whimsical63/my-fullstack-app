@@ -109,9 +109,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     { name: string; email: string; password: string }
   >("/auth/sign-up");
 
-  const logoutMutation = usePostApiMutation<{ message: string }, {}>(
-    "/auth/sign-out"
-  );
+  const logoutMutation = usePostApiMutation<
+    { message: string },
+    Record<string, never>
+  >("/auth/sign-out");
 
   // Handle authentication errors and cross-tab synchronization
   useEffect(() => {
@@ -170,7 +171,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = useCallback(
     async (email: string, password: string) => {
       const response = await loginMutation.mutateAsync({ email, password });
-      const { user: userData, accessToken: token } = response;
+      const { accessToken: token } = response;
 
       setAccessToken(token);
       // Invalidate and refetch user data

@@ -1,4 +1,4 @@
-import { uuidv4, z } from "zod/v4";
+import { z } from "zod/v4";
 import { createUserSchema, signInSchema } from "../schemas/user";
 import { db } from "../database/db";
 import { users, sessions } from "../database/schema";
@@ -6,7 +6,7 @@ import { Request, Response, NextFunction, RequestHandler } from "express";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config/env";
+import { REFRESH_TOKEN_SECRET } from "../config/env";
 import {
   generateAccessToken,
   generateRefreshToken,
